@@ -1,0 +1,12 @@
+---
+title: "Titanic"
+output: html_notebook
+---
+fordi alle skal lave den.
+
+```{r}
+
+library(titanic)
+titanic::titanic_train
+```
+
