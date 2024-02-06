@@ -1,0 +1,147 @@
+---
+title: "Debugging R"
+author: "Christian Knudsen"
+format: html
+editor: visual
+---
+
+```{r echo = F}
+library(tidyverse)
+```
+
+
+# So something is not working
+
+Don't panic! If you do not get errors working with R, you are not working with
+R.
+
+Start by reading the error message
+
+We are going to encounter the concept `object` a lot. In R the rule is:
+
+"everything is an object". Variables, vectors, dataframes, functions, operators.
+
+When R complains that some object is cannot be found, it simply means that something
+cannot be found. Do not confuse it with other programming languages where 
+"object" has a more specific meaning.
+
+## Typos and friends
+
+Missing ")" 
+
+
+
+## Errors relating to structure of your data
+
+
+### Unexpected symbol in "..."
+
+### Datatypos
+
+Identifying data types in your dataset
+
+
+
+```{r}
+str(mtcars)
+```
+
+
+Changing characters (factors) to numerical values
+
+Changing characters (factors) to characters
+
+
+Files does not exist in
+
+### object of type 'closure' is not subsettable
+
+There are two important words - "closure" and "subsettable". Subsetting is the
+action of accessing parts of a complex data structure, like a dataframe, a vector
+or a list, typically using operators like '[]', '[[]]' or '$'.
+
+A closure is a special type of object - a function. 
+
+Therefore, we get the messages "Object of type 'closure' is not subsettable", 
+if we try to subset a function.
+
+```{r}
+mean[1]
+```
+
+It typically happens if we by accident enter "[]" instead of "()".
+
+How to fix? Do not subset functions.
+
+
+### Object X not found
+```{r}
+lenght
+```
+
+This problem arises because you are trying work with something that does not 
+exist. It is closely related to "could not find function..." below. 
+
+There are two main reasons for this problem. Either you have not actually 
+defined the object before you are trying to do something with it. You might 
+have forgotten to run the line of code where you do _that_.
+
+Or there is a typo in the name. In this example I have mistyped length.
+
+The problem is fixed by either making sure that you run the code defining the 
+object, og by fixing the typo. Remember that R is case-sensitive, there is a 
+difference between "data" and "Data".
+
+### could not find function...
+
+```{r}
+addterm()
+```
+A problem closely related to "Object X not found", but specifically for the objects
+that are functions; you are trying to use a function that R does not know.
+
+Typos are a common reason for this mistake - so make sure you typed the name 
+correctly.
+
+Probably the most common reason is that the function comes from a library/package
+that you have not installed or read in. This is fixed by making sure that this 
+is done; maybe you forgot to run "library(MASS)"? 
+
+If you have defined your own function - have you remembered to run the code defining
+it?
+
+### notes
+
+
+
+Error in if (condition) { : argument is of length zero
+
+This error occurs when an if statement is given a condition that does not return a TRUE or FALSE value, typically because the condition evaluated to a length zero vector.
+Error: could not find function "X"
+
+This error indicates that R could not locate a function named "X". It often occurs because the package containing the function has not been loaded with library() or require(), or because there's a typo in the function name.
+Error in read.table(file = "data.txt") : no lines available in input
+
+This error occurs when attempting to read a file using read.table() or similar functions, and the file is empty or does not exist at the specified path.
+Error: unexpected symbol/input/string/numeric/EOF in "X"
+
+This error series (unexpected symbol, input, string, numeric, EOF) occurs when there's a syntax error in the code, such as a missing comma, parenthesis, or misspelled keyword.
+Error: object 'X' not found
+
+Indicates that R could not find an object named "X". This usually happens when the object has not been created or is misspelled.
+Error: replacement has [X] rows, data has [Y]
+
+This error occurs during an attempt to replace part of an object with a replacement that has a different number of rows than the object requires.
+Error: cannot allocate vector of size X Mb
+
+R is unable to allocate enough memory for a vector of the specified size. This is often encountered with large datasets and can be related to R's memory management limitations on certain systems.
+Error in plot.new() : figure margins too large
+
+This error typically occurs when plotting, and the plotting region is too small for the plot margins. Adjusting the plotting window size or the mar parameter in par() can resolve this issue.
+Error: package or namespace load failed for ‘X’
+
+Occurs when a package cannot be loaded due to missing dependencies, version conflicts, or problems with the package installation.
+Error: $ operator is invalid for atomic vectors
+
+This error happens when attempting to use the $ operator on an object that is not a list or data frame, such as a vector, to access elements.
+Understanding these errors and their causes can significantly streamline the debugging process in R programming.
